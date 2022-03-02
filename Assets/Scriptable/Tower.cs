@@ -10,4 +10,5 @@ public class Tower : ScriptableObject
     public float attackDamage;
     public Sprite attackSprite;
     public Color colorChange;
+    public GameObject target;
 }
