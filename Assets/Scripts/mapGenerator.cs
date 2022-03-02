@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,19 +15,37 @@ public class mapGenerator : MonoBehaviour
 
     private GameObject[,] table;
     private bool isRoad;
+    private Vector3 tilePos;
 
-    void Start()
+    private int xTile;
+    private int yTile;
+
+    void Awake()
     {
-        int xTile = Mathf.FloorToInt(mapTileSize.x / 2);
-        int yTile = Mathf.FloorToInt(mapTileSize.y / 2);
-        table = new GameObject[(int)mapTileSize.x, (int)mapTileSize.y];
-        for (int i = 0; i < mapTileSize.x; i++)
+        xTile = Mathf.FloorToInt(mapTileSize.x / 2);
+        yTile = Mathf.FloorToInt(mapTileSize.y / 2);
+        table = new GameObject[(int) mapTileSize.x, (int) mapTileSize.y];
+        for(int i = 0 ; i < mapTileSize.x ; i++)
         {
-            for (int j = 0; j < mapTileSize.y; j++)
+            for(int j = 0 ; j < mapTileSize.y ; j++)
             {
                 isRoad = Array.Exists(roadPositions, el => el == new Vector2(i, j));
-                table[i, j] = Instantiate(isRoad ? dirtSlab : grassSlab, new Vector3((i - xTile) * (tileSize.x + offset), 0.25f, (j - yTile) * (tileSize.y + offset)), Quaternion.identity, parent.transform); ;
+                tilePos = new Vector3(( i - xTile ) * ( tileSize.x + offset ), 0.25f, ( j - yTile ) * ( tileSize.y + offset ));
+                table[i, j] = Instantiate(isRoad ? dirtSlab : grassSlab, tilePos, Quaternion.identity, parent.transform);
             }
         }
+    }
+
+    public List<Vector3> getTilePositions()
+    {
+        xTile = Mathf.FloorToInt(mapTileSize.x / 2);
+        yTile = Mathf.FloorToInt(mapTileSize.y / 2);
+        List<Vector3> tilePositions = new List<Vector3>();
+        foreach(Vector2 pos in roadPositions)
+        {
+            tilePos = new Vector3(( pos.x - xTile ) * ( tileSize.x + offset ), 0.25f, ( pos.y - yTile ) * ( tileSize.y + offset ));
+            tilePositions.Add(tilePos);
+        }
+        return tilePositions;
     }
 }

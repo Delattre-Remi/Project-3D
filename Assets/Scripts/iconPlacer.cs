@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class iconPlacer : MonoBehaviour
 {
     [SerializeField] GameObject[] icons;
+    [SerializeField] GameObject[] texts;
     [SerializeField] GameObject parent;
     [SerializeField] float offset;
     private RectTransform parentRt;
@@ -15,6 +15,8 @@ public class iconPlacer : MonoBehaviour
     private Vector3 newScale;
     private GameObject icon;
     private RectTransform iconRect;
+    private GameObject text;
+    private RectTransform textRect;
     private Vector3 newPos;
 
     void Start()
@@ -29,6 +31,8 @@ public class iconPlacer : MonoBehaviour
         for(int i = 0 ; i < nbrOfIcons ; i++)
         {
             icon = icons[i];
+            text = texts[i];
+            text.GetComponent<TextMeshPro>().text = "Test ======";
             newScale = icon.transform.localScale;
             iconRect = icon.GetComponent<RectTransform>();
             newScale *= parentWidth / iconRect.rect.width;
@@ -36,6 +40,7 @@ public class iconPlacer : MonoBehaviour
             newPos = icon.transform.position;
             newPos.y = parentHeight - step * i - offset;
             icon.transform.position = newPos;
+            text.transform.position = newPos;
         }
     }
 }

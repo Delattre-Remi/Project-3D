@@ -1,0 +1,16 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+public class UI_Updater : MonoBehaviour
+{
+    [SerializeField] GameObject UI;
+    [SerializeField] TextMeshProUGUI moneyTMP;
+
+    public void updateMoney(float money)
+    {
+        moneyTMP.text = "Money \n " + money.ToString("0") + " $";
+    }
+}

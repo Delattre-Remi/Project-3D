@@ -20,11 +20,11 @@ public class PathFollower : MonoBehaviour
 
     void CheckNode()
     {
-        Debug.Log(CurrentNode);
+        //Debug.Log(CurrentNode);
         startPosition = player.transform.position;
-        Debug.Log(startPosition);
+        //Debug.Log(startPosition);
         Timer = 0;
-        CurrentPositionHolder = PathNode[CurrentNode].transform.position;
+        //CurrentPositionHolder = PathNode[CurrentNode].transform.position;
     }
 
     void Update()
