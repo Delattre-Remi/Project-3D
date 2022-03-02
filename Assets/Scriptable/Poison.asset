@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: Poison
   prefab: {fileID: 3182650337988394401, guid: 275112aab4c7fb54c87038fa7c1079db, type: 3}
-  price: 0
+  price: 50
   attackSpeed: 0
   attackDamage: 0
   attackSprite: {fileID: 0}
