@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 629440625808407533}
   - component: {fileID: 8192234210438336952}
   - component: {fileID: 4173844623175993133}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 8865585331680521551}
   - component: {fileID: 8865585331680521520}
   - component: {fileID: 8865585331680521521}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Canva
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 8865585332553372266}
   - component: {fileID: 8865585332553372264}
   - component: {fileID: 8865585332553372265}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}

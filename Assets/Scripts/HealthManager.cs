@@ -6,15 +6,15 @@ using TMPro;
 public class HealthManager : MonoBehaviour
 {
     private Canvas Canva;
+    private gamePlayManager manager;
     private TextMeshProUGUI Health;
-    [SerializeField] private Tower[] towerTypes;
+    private PathFollower pathFollower;
+    private Tower[] towerTypes;
     private GameObject player;
-    Tower attacker;
-    List<GameObject> enemylist;
+    private Tower attacker;
+    private List<GameObject> enemylist;
     private static int deadEnemies = 0;
     private static int baseHealth = 100;
-    private gamePlayManager manager;
-
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -28,7 +28,17 @@ public class HealthManager : MonoBehaviour
                 attacker = tower;
             }
         }
-        if (int.Parse(Health.text) > 0)
+
+        if(attacker.type == "Ice")
+        {
+            pathFollower.slow();
+        }
+        else if(attacker.type == "Lightning")
+        {
+            pathFollower.stun();
+        }
+
+        if(int.Parse(Health.text) > 0)
         {
             Health.text = HealthLoss(attacker.attackDamage).ToString();
         }
@@ -36,27 +46,25 @@ public class HealthManager : MonoBehaviour
         {
             if (deadEnemies % 15 == 0)
             {
-                baseHealth += 100;
+                baseHealth += 20;
             }
             enemylist.Remove(player);
             Destroy(player);
             deadEnemies++;
-            Debug.Log(manager);
-            manager.addMoner(baseHealth / 100);
+            manager.addMoner(baseHealth / 10);
 
         }
         Destroy(collision.gameObject);
     }
     private float HealthLoss(float loss)
     {
-        //Debug.Log(Health);
         float healthvalue = int.Parse(Health.text);
         float currenthealth = healthvalue - loss;
         return currenthealth;
     }
 
 
-    public void init(Tower[] _towerTypes, GameObject _player, List<GameObject> _enemylist, gamePlayManager _manager)
+    public void init(Tower[] _towerTypes, GameObject _player, List<GameObject> _enemylist, gamePlayManager _manager, PathFollower _pathFollower)
     {
         towerTypes = _towerTypes;
         player = _player;
@@ -65,5 +73,6 @@ public class HealthManager : MonoBehaviour
         Health.text = baseHealth.ToString();
         enemylist = _enemylist;
         manager = _manager;
+        pathFollower = _pathFollower;
     }
 }

@@ -5,6 +5,7 @@ public class iconPlacer : MonoBehaviour
 {
     [SerializeField] GameObject[] icons;
     [SerializeField] GameObject[] texts;
+    [SerializeField] Tower[] towers;
     [SerializeField] GameObject parent;
     [SerializeField] float offset;
     private RectTransform parentRt;
@@ -16,8 +17,8 @@ public class iconPlacer : MonoBehaviour
     private GameObject icon;
     private RectTransform iconRect;
     private GameObject text;
-    private RectTransform textRect;
     private Vector3 newPos;
+    private Tower tower;
 
     void Start()
     {
@@ -32,7 +33,8 @@ public class iconPlacer : MonoBehaviour
         {
             icon = icons[i];
             text = texts[i];
-            text.GetComponent<TextMeshPro>().text = "Test ======";
+            tower = towers[i];
+            text.GetComponent<TextMeshProUGUI>().text = tower.price.ToString();
             newScale = icon.transform.localScale;
             iconRect = icon.GetComponent<RectTransform>();
             newScale *= parentWidth / iconRect.rect.width;
@@ -40,6 +42,7 @@ public class iconPlacer : MonoBehaviour
             newPos = icon.transform.position;
             newPos.y = parentHeight - step * i - offset;
             icon.transform.position = newPos;
+            newPos.y -= iconRect.rect.width;
             text.transform.position = newPos;
         }
     }

@@ -48,6 +48,8 @@ public class inGameTower : MonoBehaviour
         if(firstEnemy != emptyPrefab)
         {
             GameObject bullet = Instantiate(tower.attackPrefab, pos, Quaternion.Euler(vectorToShoot), towerGameobject.transform);
+            Renderer rd = bullet.GetComponent<Renderer>();
+            rd.material.color = tower.colorChange;
             vectorToShoot = firstEnemy.transform.position - pos;
             vectorToShoot.Normalize();
             bullet.transform.localScale = new Vector3(factor, factor, factor);
