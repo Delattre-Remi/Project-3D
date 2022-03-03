@@ -1,28 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class inGameTower : ScriptableObject
-{
-    private Tower tower;
-    private Vector3 pos;
-    private Transform parent;
-    private GameObject gameObject;
-    private Renderer renderer;
-    public void spawn(Tower _tower, Vector3 _pos, Transform _parent)
-    {
-        tower = _tower;
-        pos = _pos;
-        parent = _parent;
-        gameObject = Instantiate(tower.prefab, pos, Quaternion.identity, parent);
-        renderer = gameObject.GetComponent<Renderer>();
-        renderer.material.color = tower.colorChange;
-    }
-}
-
 public class towerManager : MonoBehaviour
 {
+    [SerializeField] private EnemySpawner enemySpawner;
+    [SerializeField] private GameObject emptyPrefab;
     private List<inGameTower> inGameTowers;
     private inGameTower tmpTower;
+    private GameObject towerGameobject;
+    private Renderer towerRenderer;
 
     void Start()
     {
@@ -31,8 +17,9 @@ public class towerManager : MonoBehaviour
 
     public void spawn(Tower tower, Vector3 pos, Transform parent)
     {
-        tmpTower = ScriptableObject.CreateInstance<inGameTower>();
-        tmpTower.spawn(tower, pos, parent);
+        towerGameobject = Instantiate(tower.prefab, pos, Quaternion.identity, parent);
+        tmpTower = towerGameobject.AddComponent<inGameTower>();
+        tmpTower.spawn(tower, towerGameobject, enemySpawner, emptyPrefab);
         inGameTowers.Add(tmpTower);
     }
 }

@@ -18,10 +18,15 @@ public class gamePlayManager : MonoBehaviour
 
     public void trySpawnTower(Tower tower, Vector3 pos, Transform parent)
     {
-        if(money >= tower.price)
+        if (money >= tower.price)
         {
             towerManager.spawn(tower, pos, parent);
             money -= tower.price;
         }
+    }
+
+    public void addMoner(int amount)
+    {
+        money += amount;
     }
 }

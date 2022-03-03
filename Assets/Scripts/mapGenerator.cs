@@ -10,7 +10,6 @@ public class mapGenerator : MonoBehaviour
     [SerializeField] private Vector2 tileSize;
     [SerializeField] private Vector2 mapTileSize;
     [SerializeField] private float offset;
-
     [SerializeField] private Vector2[] roadPositions;
 
     private GameObject[,] table;

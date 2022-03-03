@@ -8,7 +8,8 @@ public class Tower : ScriptableObject
     public int price;
     public float attackSpeed;
     public float attackDamage;
+    public float attackRange;
     public Sprite attackSprite;
     public Color colorChange;
-    public GameObject target;
+    public GameObject attackPrefab;
 }

@@ -19,3 +19,4 @@ MonoBehaviour:
   attackDamage: 0
   attackSprite: {fileID: 0}
   colorChange: {r: 1, g: 1, b: 0, a: 1}
+  target: {fileID: 4433027612506580455, guid: cfaa6d05652e25b4cb18b0e2529025f3, type: 3}

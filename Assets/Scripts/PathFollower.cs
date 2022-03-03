@@ -1,25 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class PathFollower : MonoBehaviour
 {
-    public List<Vector3> PathNode = new List<Vector3>();
-    Vector3 tmpNode;
-    public GameObject player;
-    public float speed;
-    public int CurrentNode;
-    static Vector3 startPosition;
-    static Vector3 CurrentPositionHolder;
-    float Timer;
-    [SerializeField] mapGenerator mapgenerator;
-    public float positionVerticalOffset;
+    private List<Vector3> PathNode = new List<Vector3>();
+    private Vector3 tmpNode;
+    private Transform player;
+    private float speed = 2;
+    private int CurrentNode;
+    private Vector3 startPosition;
+    private Vector3 CurrentPositionHolder;
+    private float Timer;
+    private mapGenerator mapgenerator;
+    private float positionVerticalOffset = 0.75f;
 
     void Start()
     {
+        player = transform;
+        mapgenerator = FindObjectOfType<mapGenerator>();
         PathNode = mapgenerator.getTilePositions();
-        for (int i = 0; i < PathNode.Count; i++)
+        for(int i = 0 ; i < PathNode.Count ; i++)
         {
             tmpNode = PathNode[i];
             tmpNode.y += positionVerticalOffset;
@@ -30,9 +31,7 @@ public class PathFollower : MonoBehaviour
 
     void CheckNode()
     {
-        //Debug.Log(CurrentNode);
-        startPosition = player.transform.position;
-        //Debug.Log(startPosition);
+        startPosition = player.position;
         Timer = 0;
         CurrentPositionHolder = PathNode[CurrentNode];
     }
@@ -40,13 +39,13 @@ public class PathFollower : MonoBehaviour
     void Update()
     {
         Timer += Time.deltaTime * speed;
-        if ((player.transform.position - CurrentPositionHolder).magnitude > 0.01f)
+        if(( player.position - CurrentPositionHolder ).magnitude > 0.01f)
         {
-            player.transform.position = Vector3.Lerp(startPosition, CurrentPositionHolder, Timer);
+            player.position = Vector3.Lerp(startPosition, CurrentPositionHolder, Timer);
         }
         else
         {
-            if (CurrentNode < PathNode.Count - 1)
+            if(CurrentNode < PathNode.Count - 1)
             {
                 CurrentNode++;
                 CheckNode();

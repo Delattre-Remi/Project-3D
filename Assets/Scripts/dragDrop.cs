@@ -7,6 +7,7 @@ public class dragDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
     [SerializeField] private Camera cam;
     [SerializeField] private towerSpawner towerSpawner;
     [SerializeField] private GameObject parent;
+    [SerializeField] private GameObject towersParent;
     [SerializeField] private float dragScale;
     [SerializeField] private float towerVerticalOffset;
     private GameObject draggedObject;

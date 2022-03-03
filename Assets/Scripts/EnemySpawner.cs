@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public Transform enemyPrefab;
-    public Transform spawnPoint;
+    private GameObject spawnedEnnemy;
 
-    public List<Transform> enemyList;
+    [SerializeField] private Transform ennemyParent;
+    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private float timeBetweenWaves = 5f;
+    [SerializeField] private Tower[] towerTypes;
+    [SerializeField] private gamePlayManager manager;
 
-    public float timeBetweenWaves = 5f;
+    private List<GameObject> enemyList = new List<GameObject>();
+
     private float countdown = 2f;
 
     private void Update()
@@ -19,19 +23,26 @@ public class EnemySpawner : MonoBehaviour
             SpawnWave();
             countdown = timeBetweenWaves;
         }
-        Debug.Log(countdown);
+        //Debug.Log(countdown);
         countdown -= Time.deltaTime;
     }
 
     void SpawnWave()
     {
-        Debug.Log("Wave spawning");
         SpawnEnemy();
     }
 
     void SpawnEnemy()
     {
-        Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-        enemyList.Add(enemyPrefab);
+        spawnedEnnemy = Instantiate(enemyPrefab, ennemyParent.position, Quaternion.identity, ennemyParent);
+        enemyList.Add(spawnedEnnemy);
+        spawnedEnnemy.AddComponent<PathFollower>();
+        HealthManager enemyCollider = spawnedEnnemy.AddComponent<HealthManager>();
+        enemyCollider.init(towerTypes, spawnedEnnemy, enemyList, manager);
+    }
+
+    public List<GameObject> getEnemyList()
+    {
+        return enemyList;
     }
 }
